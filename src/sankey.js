@@ -112,7 +112,17 @@ export default function () {
   };
 
   sankey.ignoredNodes = function (_) {
-    return arguments.length ? (ignoredNodes = _, sankey) : this.ignoredNodes;
+    if (arguments.length) {
+      if (!Array.isArray(_)) {
+        throw new Error('ignoredNodes requires a list of node ids')
+      }
+
+      ignoredNodes = _
+
+      return sankey
+    }
+
+    return this.ignoredNodes
   };
 
   // Populate the sourceLinks and targetLinks for each node.
