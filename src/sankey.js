@@ -58,7 +58,9 @@ export default function () {
     nodes = defaultNodes,
     links = defaultLinks,
     iterations = 32,
-    ignoredNodes = [];
+    ignoredNodes = [],
+    sortSourceLinks = true,
+    sortTargetLinks = true;
 
   function sankey() {
     var graph = { nodes: nodes.apply(null, arguments), links: links.apply(null, arguments) };
@@ -123,6 +125,14 @@ export default function () {
     }
 
     return this.ignoredNodes
+  };
+
+  sankey.enableSortSourceLinks = function (_) {
+    return arguments.length ? (sortSourceLinks = +_, sankey) : sortSourceLinks;
+  };
+
+  sankey.enableSortTargetLinks = function (_) {
+    return arguments.length ? (sortTargetLinks = +_, sankey) : sortTargetLinks;
   };
 
   // Populate the sourceLinks and targetLinks for each node.
@@ -289,8 +299,13 @@ export default function () {
 
   function computeLinkBreadths(graph) {
     graph.nodes.forEach(function (node) {
-      node.sourceLinks.sort(ascendingTargetBreadth);
-      node.targetLinks.sort(ascendingSourceBreadth);
+      if (sortSourceLinks) {
+        node.sourceLinks.sort(ascendingTargetBreadth);
+      }
+
+      if (sortTargetLinks) {
+        node.targetLinks.sort(ascendingSourceBreadth);
+      }
     });
     graph.nodes.forEach(function (node) {
       var y0 = node.y0, y1 = y0;
