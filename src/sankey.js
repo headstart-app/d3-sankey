@@ -35,6 +35,13 @@ function defaultId(d) {
   return d.index;
 }
 
+function defaultNodeValue(d) {
+  return Math.max(
+    sum(d.sourceLinks, value),
+    sum(d.targetLinks, value),
+  );
+}
+
 function defaultNodes(graph) {
   return graph.nodes;
 }
@@ -54,6 +61,7 @@ export default function() {
       dx = 24, // nodeWidth
       py = 8, // nodePadding
       id = defaultId,
+      nodeValue = defaultNodeValue,
       align = justify,
       nodes = defaultNodes,
       links = defaultLinks,
@@ -76,6 +84,10 @@ export default function() {
 
   sankey.nodeId = function(_) {
     return arguments.length ? (id = typeof _ === "function" ? _ : constant(_), sankey) : id;
+  };
+
+  sankey.nodeValue = function (_) {
+    return arguments.length ? (nodeValue = typeof _ === "function" ? _ : constant(_), sankey) : nodeValue;
   };
 
   sankey.nodeAlign = function(_) {
@@ -131,11 +143,8 @@ export default function() {
 
   // Compute the value (size) of each node by summing the associated links.
   function computeNodeValues(graph) {
-    graph.nodes.forEach(function(node) {
-      node.value = Math.max(
-        sum(node.sourceLinks, value),
-        sum(node.targetLinks, value)
-      );
+    graph.nodes.forEach(function (node) {
+      node.value = nodeValue(node);
     });
   }
 
