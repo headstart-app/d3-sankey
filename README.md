@@ -180,6 +180,10 @@ If *iterations* is specified, sets the number of relaxation iterations when [gen
 If *ignoredNodes* is specified, sets a list of nodes ids to ignore when resolving collisions, which excludes said nodes when calculating their positions,and return this Sankey generator.
 If *ignoredNodes* is not specified, returns the current ignored nodes, which defaults to an empty list.
 
+<a name="sankey_nodeValue" href="#sankey_nodeValue">#</a> <i>sankey</i>.<b>nodeValue</b>([<i>nodeId</i>]) [<>](https://github.com/headstart-app/d3-sankey/blob/master/src/sankey.js#L113 "Source")
+
+If *nodeValue* is specified, sets the node value accessor to the specified function and returns this Sankey generator. If *nodeValue* is not specified, then the node value is calculated by making the sum of all the values in the source links and in the target links. If the value is different between the two, then the bigger number is used.
+
 ### Alignments
 
 See [*sankey*.nodeAlign](#sankey_nodeAlign).
