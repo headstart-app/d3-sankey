@@ -89,15 +89,11 @@ export default function () {
     return arguments.length ? (id = typeof _ === "function" ? _ : constant(_), sankey) : id;
   };
 
-<<<<<<< HEAD
   sankey.nodeValue = function (_) {
     return arguments.length ? (nodeValue = typeof _ === "function" ? _ : constant(_), sankey) : nodeValue;
   };
 
-  sankey.nodeAlign = function(_) {
-=======
   sankey.nodeAlign = function (_) {
->>>>>>> master
     return arguments.length ? (align = typeof _ === "function" ? _ : constant(_), sankey) : align;
   };
 
@@ -173,14 +169,7 @@ export default function () {
   // Compute the value (size) of each node by summing the associated links.
   function computeNodeValues(graph) {
     graph.nodes.forEach(function (node) {
-<<<<<<< HEAD
       node.value = nodeValue(node);
-=======
-      node.value = Math.max(
-        sum(node.sourceLinks, value),
-        sum(node.targetLinks, value)
-      );
->>>>>>> master
     });
   }
 
