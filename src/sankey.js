@@ -38,7 +38,7 @@ function defaultId(d) {
 function defaultNodeValue(d) {
   return Math.max(
     sum(d.sourceLinks, value),
-    sum(d.targetLinks, value),
+    sum(d.targetLinks, value)
   );
 }
 
